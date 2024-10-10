@@ -1,23 +1,28 @@
-<?php 
+<?php
+checkIfuserIsNotLoggedIn(); // Ensure the user is logged in
 
-  // 1. connect to the database
-  $database = connectToDB();
+// Fetch logged-in user's name
+$user_name = $_SESSION['user']['name'];
 
-  $sql = "SELECT * FROM posts";
-  $query = $database->prepare($sql);
-  $query->execute();
-  $posts = $query->fetchAll();
+// Connect to the database and fetch posts
+$database = connectToDB();
+$sql = "SELECT * FROM posts";
+$query = $database->prepare($sql);
+$query->execute();
+$posts = $query->fetchAll();
 
-  require "parts/header.php"; 
+require "parts/header.php"; 
 ?>
 
 <div class="container min-vh-100">
   <div class="text-end">
     <a href="/posts-add" class="btn btn-primary btn-sm">Add New Post</a>
   </div>
-  
+
   <div class="container">
     <div class="row">
+      <!-- Display the logged-in user's name -->
+      <h1>Welcome, <?= $user_name ?>!</h1>
       <?php foreach ($posts as $post) : ?>
         <div class="col-lg-3 col-md-4 col-sm-6 p-2"> <!-- Use padding instead of margin -->
           <div class="card" style="width: 100%;"> <!-- Set to 100% to fill the column -->

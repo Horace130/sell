@@ -1,6 +1,5 @@
 <?php
 checkIfuserIsNotLoggedIn();
-checkIfIsNotAdmin() ;
 require "parts/header.php"; 
 ?>
 <form action="/post/add-comment.php" method="POST">
