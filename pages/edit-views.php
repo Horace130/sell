@@ -1,6 +1,5 @@
 <?php
 checkIfuserIsNotLoggedIn();
-checkIfIsNotAdmin();
 require "parts/header.php";
 
 // Check if the post ID is set in the query string

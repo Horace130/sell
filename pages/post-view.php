@@ -34,7 +34,8 @@ if (!$post) {
     <p class="mt-3"><?= nl2br(($post['content'])); ?></p>
 
    <!-- Edit and Delete buttons for authorized users -->
-<?php if (isset($_SESSION['user']['id']) && $_SESSION['user']['id'] == $post['user_id']) : ?>
+   <?php if ((isset($_SESSION['user']['id']) && $_SESSION['user']['id'] == $post['user_id']) || ($_SESSION['user']['role'] == 'admin')  || ($_SESSION['user']['role'] == 'editor' )) : ?>
+
     <div class="d-flex gap-2 mt-3">
         <a href="/edit-views?id=<?= $post['id']; ?>" class="btn btn-warning">Edit</a>
         <form action="/post/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
@@ -75,16 +76,15 @@ if (!$post) {
     $comments = $comment_query->fetchAll();
 
     // Check if there are any comments
-    if ($comments) {
-        foreach ($comments as $comment) {
-            ?>
+     if ($comments) {
+        foreach ($comments as $comment) { ?>
             <div class="border p-3 mb-3">
-                <p><strong><?=$comment['user_name']; ?>:</strong></p>
-                <p><?=$comment['comment_text']; ?></p>
+                <p><strong><?= $comment['user_name']; ?>:</strong></p>
+                <p><?= $comment['comment_text']; ?></p>
                 <p class="text-muted small"><?= $comment['created_at']; ?></p>
-
+    
                 <!-- Edit and Delete buttons for comment author or admin -->
-                <?php if (isset($_SESSION['user']['id']) && $_SESSION['user']['id'] == $comment['user_id']) { ?>
+                <?php if ((isset($_SESSION['user']['id']) && $_SESSION['user']['id'] == $comment['user_id']) || ($_SESSION['user']['role'] == 'admin')  || ($_SESSION['user']['role'] == 'editor' )) : ?>
                     <div class="d-flex gap-2 mt-2">
                         <a href="/edit-comment?id=<?= $comment['comment_id']; ?>&post_id=<?= $post['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
                         <form action="/delete-comment" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
@@ -93,18 +93,15 @@ if (!$post) {
                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                         </form>
                     </div>
-                <?php } ?>
+                <?php endif; ?>
             </div>
-            <?php
-        }
+        <?php }
     } else {
         echo "<p>No comments yet. Be the first to comment!</p>";
-    }
-    ?>
-</div>
-
+    } ?>
+    
     </div>
-    <?php
-
-require 'parts/footer.php'; 
-?>
+    </div>
+    
+    <?php require 'parts/footer.php'; ?>
+    

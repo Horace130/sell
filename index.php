@@ -79,6 +79,33 @@ switch ($path) {
     case '/categories/list':
         require 'includes/categories/list-categories.php';
         break;
+        case '/manage-users' :
+            require 'pages/manage-users.php';
+            break;
+            case '/manage-users-add':
+                require 'pages/manage-users-add.php';
+                break;
+            case '/manage-users-changepwd' :
+                require 'pages/manage-users-changepwd.php';
+                break;
+            case '/manage-users-edit' :
+                require 'pages/manage-users-edit.php';
+                break;
+                case '/user/add':
+                    require 'includes/user/add.php';
+                    break;
+                // setup the action route for delete user
+                case '/user/delete':
+                    require 'includes/user/delete.php';
+                    break;
+                // Setup the action route for edit user
+                case '/user/edit':
+                    require 'includes/user/edit.php';
+                    break;
+                // setup the action route for change password
+                case '/user/changepwd':
+                    require 'includes/user/changepwd.php';
+                    break;
 
     // Default route to home if path is not found
     default:

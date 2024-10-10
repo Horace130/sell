@@ -18,6 +18,25 @@ require "parts/header.php";
   <div class="text-end">
     <a href="/posts-add" class="btn btn-primary btn-sm">Add New Post</a>
   </div>
+  <?php if ( $_SESSION['user']['role'] == 'admin' ) : ?>
+        <div class="col">
+          <div class="card mb-2">
+            
+              <h5 class="card-title text-center">
+                <div class="mb-1">
+                  <i class="bi bi-people" style="font-size: 3rem;"></i>
+                </div>
+                Manage Users
+              </h5>
+              <div class="text-center mt-3">
+                <a href="/manage-users" class="btn btn-primary btn-sm"
+                  >Access</a
+                >
+              </div>
+            
+          </div>
+        </div>
+      <?php endif; ?>
 
   <div class="container">
     <div class="row">
@@ -45,6 +64,7 @@ require "parts/header.php";
           </div>
         </div>
       <?php endforeach; ?>
+      
     </div>
   </div>
 </div>
