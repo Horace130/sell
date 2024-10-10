@@ -33,7 +33,8 @@ if (!$post) {
     <img src="<?= $post['image_url']; ?>" alt="<?= $post['title']; ?>" style="width: 300px; height: 200px; object-fit: cover;" />
     <p class="mt-3"><?= nl2br(($post['content'])); ?></p>
 
-    <!-- Edit and Delete buttons for authorized users -->
+   <!-- Edit and Delete buttons for authorized users -->
+<?php if (isset($_SESSION['user']['id']) && $_SESSION['user']['id'] == $post['user_id']) : ?>
     <div class="d-flex gap-2 mt-3">
         <a href="/edit-views?id=<?= $post['id']; ?>" class="btn btn-warning">Edit</a>
         <form action="/post/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
@@ -41,8 +42,10 @@ if (!$post) {
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
     </div>
-
+<?php else : ?>
     <a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+<?php endif; ?>
+
     
     <!-- Comment Form -->
     <div class="mt-5">
