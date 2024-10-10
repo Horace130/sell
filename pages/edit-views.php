@@ -1,7 +1,7 @@
 <?php
 checkIfuserIsNotLoggedIn();
 checkIfIsNotAdmin();
-require "parts/header.php"; 
+require "parts/header.php";
 
 // Check if the post ID is set in the query string
 if (isset($_GET['id'])) {
@@ -49,7 +49,9 @@ if (isset($_GET['id'])) {
                     <select class="form-select" id="category_id" name="category_id" required>
                         <option value="">Select a category</option>
                         <?php foreach ($categories as $category): ?>
-                            <option value="<?= $category['id']; ?>" <?= $post['category_id'] == $category['id'] ? 'selected' : ''; ?>><?= $category['name']; ?></option>
+                            <option value="<?= $category['id']; ?>" <?= $post['category_id'] == $category['id'] ? 'selected' : ''; ?>>
+                                <?= $category['name']; ?>
+                            </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
